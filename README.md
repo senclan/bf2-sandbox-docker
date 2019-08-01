@@ -5,7 +5,7 @@ This is a simple script to build a docker container image of the
 
 ## Prerequisites
 
-This extends the [bf2server docker](https://github.com/senclan/bf2server-docker)
+This extends the [bf2 server docker](https://github.com/senclan/bf2-server-docker)
 image. You will need to first build a `bf2/server:latest` image before you can
 build this one.
 
@@ -35,6 +35,6 @@ run the following command
 ./build.sh -s sandbox_server_1.0.1.zip -t bf2/mod/sandbox:latest
 ```
 
-Reference [bf2server docker](https://github.com/senclan/bf2server-docker) for
+Reference [bf2 server docker](https://github.com/senclan/bf2-server-docker) for
 examples of running the docker container.
 
