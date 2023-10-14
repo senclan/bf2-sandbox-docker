@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  sandbox:
+    build:
+      tags:
+        - bf2/mods/sandbox:latest
+      context: .
+    tty: true
+    environment:
+      - BF2_CONFIG=/serversettings.con
+      - BF2_MAPLIST=/maplist.con
+    ports:
+      - 16567:16567/udp
+      - 29900:29900/udp
+    volumes:
+      - ./examples/maplist.con:/maplist.con:ro
+      - ./examples/serversettings.con:/serversettings.con:ro
