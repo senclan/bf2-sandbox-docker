@@ -1,4 +1,16 @@
-From bf2/server:latest
+FROM rockylinux:9 as build
+
+ARG SANDBOX=sandbox_server_1.0.1.zip
+
+RUN yum -y install unzip
+
+COPY ${SANDBOX} /tmp/mod.zip
+
+RUN mkdir /mods \
+    && unzip -o -d /mods /tmp/mod.zip \
+    && chown -R 1000:1000 /mods
+
+FROM bf2/server:latest
 
 EXPOSE 80/tcp
 EXPOSE 4711/tcp
@@ -17,9 +29,6 @@ EXPOSE 29900/udp
 EXPOSE 29900/tcp
 EXPOSE 55123-55125/udp
 
-COPY ./files /bf2/mods
+ENV BF2_MODPATH=mods/sandbox
 
-WORKDIR /bf2
-
-ENTRYPOINT ["/bf2/start.sh", "+modPath", "mods/sandbox"]
-CMD ["+config", "/bf2/mods/sandbox/settings/ServerSettings.con", "+mapList", "/bf2/mods/sandbox/settings/maplist.con"]
+COPY --from=build /mods /bf2/mods/
